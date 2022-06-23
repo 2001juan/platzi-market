@@ -19,10 +19,13 @@ public interface ProductMapper {
         @Mapping(source = "estado",target = "active"),
         @Mapping(source = "categoria",target = "category")
     })
+    //recibe un Producto y lo mapea a un Product
     Product toProduct(Producto producto);
     List<Product> toProducts(List<Producto> productos);
 
+    //el @InheritInverseConfiguration sabe que debe hacer el mapeo (@mappings) inverso al que tenemos
     @InheritInverseConfiguration
+    //la siguiente línea se hace para que no haya que mapear el código de barras en este mapeo
     @Mapping(target = "codigoBarras",ignore = false)
     Producto toProducto(Product product);
 
