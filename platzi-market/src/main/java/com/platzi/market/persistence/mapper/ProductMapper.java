@@ -24,9 +24,10 @@ public interface ProductMapper {
     List<Product> toProducts(List<Producto> productos);
 
     //el @InheritInverseConfiguration sabe que debe hacer el mapeo (@mappings) inverso al que tenemos
-    @InheritInverseConfiguration
     //la siguiente línea se hace para que no haya que mapear el código de barras en este mapeo
-    @Mapping(target = "codigoBarras",ignore = false)
+
+    @InheritInverseConfiguration
+    @Mapping(target = "codigoBarras",ignore = true)
     Producto toProducto(Product product);
 
 }

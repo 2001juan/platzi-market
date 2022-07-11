@@ -1,16 +1,16 @@
 package com.platzi.market.domain;
 
 public class Category {
-    private int categoriId;
+    private int categoryId;
     private String category;
     private boolean active;
 
-    public int getCategoriId() {
-        return categoriId;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoriId(int categoriId) {
-        this.categoriId = categoriId;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategory() {
