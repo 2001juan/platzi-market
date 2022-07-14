@@ -5,9 +5,8 @@ import com.platzi.market.domain.repository.ProductRepository;
 import com.platzi.market.persistence.crud.ProductoCrudRepository;
 import com.platzi.market.persistence.entity.Producto;
 import com.platzi.market.persistence.mapper.ProductMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -15,8 +14,11 @@ import java.util.Optional;
 //se indica que esta clase es la que interactua con la base de datos
 @Repository
 public class ProductoRepository implements ProductRepository {
+    //se incluye @Autowired con el fin de crear y poblar los objetos crud y mapper
+    @Autowired
     private ProductoCrudRepository productoCrudRepository;
 
+    @Autowired
     private ProductMapper mapper;
     @Override
     public List<Product> getAll(){
