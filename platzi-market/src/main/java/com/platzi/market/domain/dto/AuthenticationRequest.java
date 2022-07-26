@@ -19,5 +19,5 @@ public class AuthenticationRequest {
         this.password = password;
     }
 
-    private String password:
+    private String password;
 }
