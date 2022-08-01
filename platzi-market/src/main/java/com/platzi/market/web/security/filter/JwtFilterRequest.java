@@ -15,6 +15,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+//Clase que verifica peticiones jwt para que se ejecute cada que existe una petición
 @Component
 public class JwtFilterRequest extends OncePerRequestFilter {
 
@@ -27,7 +29,9 @@ public class JwtFilterRequest extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        //capturo el encabezado del request
         String authorizationHeader=request.getHeader("Authorization");
+        //si viene header y comienza con la palabra Bearer -> jwt debe utilizar Bearer
         if(authorizationHeader!=null && authorizationHeader.startsWith("Bearer")){
             //substring luego de la palabra Bearer + espacio
             String jwt=authorizationHeader.substring(7);
@@ -39,10 +43,11 @@ public class JwtFilterRequest extends OncePerRequestFilter {
                 //preguntar si el jwt es correcto
                 if(jwtUtil.validateToken(jwt,userDetails)){
                     //se levanta sesión para el usuario
+                    // userDetails.getAuthorities donde se mandan los roles pero como no hay no mandamos nada
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                     //que usuario, SO
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    //se asigna la autenticación para no hacer este filtro de nuevo
+                    //se asigna la autenticación para no hacer este filtro ya que se valida arriba en SecurityContextHolder.getContext().getAuthentication()==null
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             }

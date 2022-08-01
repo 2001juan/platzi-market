@@ -20,6 +20,7 @@ public class SecurityConfig {
     @Autowired
     UserDetailsService userDetailsService;
 
+    //clase filtro de usuario y contraseña creado
     @Autowired
     private JwtFilterRequest jwtFilterRequest;
 
@@ -32,6 +33,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        //se incluye el filtro (clase) jwtFilterRequest
         http.addFilterBefore(jwtFilterRequest, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

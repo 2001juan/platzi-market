@@ -31,6 +31,7 @@ public class JWTUtil {
     public String extractUserName(String token){
         return getClaims(token).getSubject();
     }
+
     //validar el token no haya vencido
     public boolean isTokenExpired(String token){
         return getClaims(token).getExpiration().before(new Date());
