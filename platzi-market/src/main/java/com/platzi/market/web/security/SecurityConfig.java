@@ -22,8 +22,12 @@ public class SecurityConfig {
 
     @Autowired
     private JwtFilterRequest jwtFilterRequest;
+
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        //Primero se suprime la configuración por defecto y luego con antMatchers se dice que se va a permitir
+        //todas las peticiones que terminen en authenticate las permita y el resto si necesitan autenticación
         http.csrf().disable().authorizeRequests().antMatchers("/**/authenticate").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -32,6 +36,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    //sepa que explicitamente lo estamos usando como gestor de autenticación de la aplicación
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
